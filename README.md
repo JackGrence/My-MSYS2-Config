@@ -1,3 +1,3 @@
-# My Linux Config
+# My MSYS2 Config
 
 ![](./main.png)
