@@ -1,11 +1,12 @@
 #!/bin/bash
 
 # install needed package
-sudo apt-get update
-sudo apt-get install python3-pip python-dev build-essential tmux automake pkg-config curl vim
-sudo python3 -m pip install powerline-shell
-sudo python3 -m pip install virtualenvwrapper
-sudo apt-get install rxvt-unicode
+pacman -S python python-devel python-pip tmux git man mingw-w64-x86_64-universal-ctags-git
+pip install powerline-shell virtualenvwrapper
+# install MSYS gcc
+pacman -S gcc pkgconf make
+# install MINGW gcc
+pacman -S mingw-w64-x86_64-make mingw-w64-x86_64-pkgconf mingw-w64-x86_64-gcc
 
 read -p "Install tmux? " -n 1 -r
 echo    # (optional) move to a new line
@@ -30,24 +31,3 @@ then
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 	vim -c 'PluginInstall' -c 'qa!'
 fi
-
-# install ctag
-read -p "Install ctag? " -n 1 -r
-echo    # (optional) move to a new line
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-	pushd /tmp
-	git clone https://github.com/universal-ctags/ctags.git
-	cd ctags
-	./autogen.sh
-	./configure
-	make
-	sudo make install
-	popd
-fi
-
-pushd /tmp
-git clone https://github.com/majutsushi/urxvt-font-size.git
-mkdir -p ~/.urxvt/ext/
-cp urxvt-font-size/font-size ~/.urxvt/ext/
-popd
